@@ -1,0 +1,30 @@
+#apiVersion: v2
+apiVersion: v3
+appVersion: ub1804_one2002_tf2.3.1_gpu_desktop_vnc_sshd
+
+description: Deploy just a pod with TensorFlow oficial image with GPU enabled plus VNC and SSH services.
+
+home: https://chaimeleon.eu/
+icon: https://pbs.twimg.com/profile_images/1329395797121769472/AXv64BOJ_400x400.jpg
+
+name: desktop-tensorflow
+
+sources:
+- https://gitlab.com/primageproject/containers/-/tree/master/ubuntu18/oneclient20/interactive/python3.6/tensorflow2.3.1/gpu/desktop/vnc/sshd/Dockerfile
+- https://chaimeleon.eu/
+type: application
+
+version: 0.1.2-rc
+
+maintainers:  
+  - name: Sergio Lopez Huguet
+    email: serlohu@upv.es
+  - name: Pau Lozano
+    email: palollo@i3m.upv.es
+
+datasets:
+  rootfs_dir: "/data"
+  rootfs_mount_dir: "/mnt/rootfs"
+  datasets_dir: "/datasets"
+  monitor_list:
+    - 192.168.3.8:6789

@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {    "desktopUser": {
+      "type": "string",
+      "title": "desktopUser",
+      "form": true
+    },
+    "desktopPassword": {
+      "type": "string",
+      "title": "desktopPassword",
+      "form": true
+    },
+    "user": {
+      "type": "object",
+      "form": true,
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "title": "uid"
+        },
+        "gid": {
+          "type": "integer",
+          "title": "gid"
+        }
+      }
+    },
+    "dataset": {
+      "type": "object",
+      "form": true,
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "id",
+          "form": true
+        },
+        "gid_list": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "title": "gid_list",
+          "form": true
+        },
+        "mount_point": {
+          "type": "string",
+          "title": "mount_point",
+          "form": true
+        }
+      }
+    },
+    "datasetImport": {
+      "type": "object",
+      "form": true,
+      "properties": {
+        "referencesFilePath": {
+          "type": "string",
+          "title": "referencesFilePath",
+          "form": true
+        },
+        "quibimHost": {
+          "type": "string",
+          "title": "quibimHost",
+          "form": true
+        },
+        "quibimSecretName": {
+          "type": "string",
+          "title": "quibimSecretName",
+          "form": true
+        }
+      }
+    },
+    "guacamoleConnectionCreation": {
+      "type": "object",
+      "form": true,
+      "title": "guacamoleConnectionCreation",
+      "properties": {
+        "host": {
+          "type": "string",
+          "form": true,
+          "title": "Hostname",
+          "hidden": {
+            "value": false,
+            "path": "guacamoleConnectionCreation/enabled"
+          }
+        },
+        "port": {
+          "type": "integer",
+          "form": true,
+          "title": "Port",
+          "hidden": {
+            "value": false,
+            "path": "guacamoleConnectionCreation/enabled"
+          }
+        }
+      }
+    }
+  }
+}

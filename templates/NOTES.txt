@@ -1,0 +1,8 @@
+
+The application will be accesible via Guacamole in the following URL:
+  {{ .Values.guacamoleConnectionCreation.guacamole_url }}
+ 
+There should be a connection created for that desktop, you can find it with the following name: 
+  {{ .Values.name }}
+
+Once in the desktop, you can access the selected dataset in the directory /mnt/dataset.

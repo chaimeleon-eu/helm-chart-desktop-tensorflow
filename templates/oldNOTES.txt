@@ -1,0 +1,11 @@
+
+The application will be accesible via Guacamole in the following URL:
+  https://{{ .Values.guacamoleConnectionCreation.host }}{{- if .Values.guacamoleConnectionCreation.port }}:{{ .Values.guacamoleConnectionCreation.port }}{{- end}}/{{ .Values.guacamoleConnectionCreation.path }}
+  
+There should be a connection created for that desktop, you can find it by date.
+  
+Once in the desktop, there will be two directory links in /home/{{ .Values.desktopUser }}/
+  - dataset
+  - persistent-home
+
+

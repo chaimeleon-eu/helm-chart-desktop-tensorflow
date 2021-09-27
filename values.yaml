@@ -1,0 +1,68 @@
+# Default values for desktop-tensorflow.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+name: "my-workstation-1"
+
+ceph:
+  key: "XXXXXXXXXX"
+  user: "XXXXXXXXXX"
+
+user:
+  uid: 1000
+  gid: 1000 
+  password: "XXXXXX"
+  username: "chaimeleon"
+  group: "chaimeleon"
+ 
+
+dataset:
+  id: "XXXXXXXXXXXXX"
+  gid_list: 
+    - 1500
+  mount_point: "/mnt/dataset"
+
+podSecurityContext: 
+  runAsUser: 1000
+  runAsGroup: 1000
+  supplementalGroups:
+    - 1500 
+  # fsGroup: 2000
+
+
+guacamoleConnectionCreation:
+  host: "chaimeleon-eu.i3m.upv.es"
+  port: 32443
+  path: "guacamole"
+  guacdHost: "10.111.51.93"
+  guacamoleUser: "pepe"
+  guacamolePassword: "pepa"
+  guacamole_url: "https://chaimeleon-eu.i3m.upv.es/guacamole/#/"
+
+
+
+
+datasets:
+  rootfs_dir: "/data"
+  rootfs_mount_dir: "/mnt/rootfs"
+  datasets_dir: "/datasets"
+  monitor_list:
+    - "192.168.3.8:6789"
+ 
+securityContext: {}
+
+  # runAsUser: 1000 #{{ .Values.user.uid }}
+  # runAsGroup: 1000 #{{ .Values.user.gid }}
+  # #supplementalGroups:
+  # #  - 1500 
+  #   #{{- toYaml .Values.dataset.gid_list  | nindent 4}}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
