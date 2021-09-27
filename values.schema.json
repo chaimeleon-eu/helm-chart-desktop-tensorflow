@@ -1,30 +1,23 @@
 {
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
-  "properties": {    "desktopUser": {
-      "type": "string",
-      "title": "desktopUser",
-      "form": true
-    },
-    "desktopPassword": {
-      "type": "string",
-      "title": "desktopPassword",
-      "form": true
-    },
-    "user": {
+  "properties": {   
+    "ceph": {
       "type": "object",
       "form": true,
       "properties": {
-        "uid": {
-          "type": "integer",
-          "title": "uid"
+        "key": {
+          "type": "string",
+          "title": "key",
+          "form": true
         },
-        "gid": {
-          "type": "integer",
-          "title": "gid"
+        "user": {
+          "type": "string",
+          "title": "user",
+          "form": true
         }
       }
-    },
+    }, 
     "dataset": {
       "type": "object",
       "form": true,
@@ -45,39 +38,44 @@
         "mount_point": {
           "type": "string",
           "title": "mount_point",
-          "form": true
+          "form": false
         }
       }
     },
-    "datasetImport": {
+    "user": {
       "type": "object",
       "form": true,
       "properties": {
-        "referencesFilePath": {
+        "username": {
           "type": "string",
-          "title": "referencesFilePath",
+          "title": "username",
           "form": true
         },
-        "quibimHost": {
+        "password": {
           "type": "string",
-          "title": "quibimHost",
+          "title": "password",
           "form": true
         },
-        "quibimSecretName": {
-          "type": "string",
-          "title": "quibimSecretName",
-          "form": true
+        "uid": {
+          "type": "integer",
+          "title": "uid",
+          "form": false
+        },
+        "gid": {
+          "type": "integer",
+          "title": "gid",
+          "form": false
         }
       }
     },
     "guacamoleConnectionCreation": {
       "type": "object",
-      "form": true,
+      "form": false,
       "title": "guacamoleConnectionCreation",
       "properties": {
         "host": {
           "type": "string",
-          "form": true,
+          "form": false,
           "title": "Hostname",
           "hidden": {
             "value": false,
@@ -86,7 +84,7 @@
         },
         "port": {
           "type": "integer",
-          "form": true,
+          "form": false,
           "title": "Port",
           "hidden": {
             "value": false,
