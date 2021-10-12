@@ -1,8 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
+# name: {{ include "desktop-tensorflow.fullname" . }}
   name: "{{ .Values.name }}"
-  #{{ include "desktop-tensorflow.fullname" . }}
+  
   labels:
     {{- include "desktop-tensorflow.labels" . | nindent 4 }}    
 spec:
@@ -19,7 +20,8 @@ spec:
     - name: {{ .Chart.Name }}
       securityContext:
         {{- toYaml .Values.securityContext | nindent 8 }}
-      image: "primage/interactive:{{ .Chart.AppVersion }}"
+      #image: "primage/interactive:ub1804_one2002_tf2.3.1_gpu_desktop_vnc_sshd"
+      image: "chaimeleon-eu.i3m.upv.es:10443/chaimeleon-library/ubuntu_python_tensorflow_gpu_desktop_vnc_sshd:{{ .Chart.AppVersion }}"
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: "{{ .Values.datasets.rootfs_mount_dir}}"
@@ -37,32 +39,39 @@ spec:
           value: "{{ .Values.user.username }}"
         - name: PASSWORD
           value: "{{ .Values.user.password }}"
+
+        ## Uncomment if you want to set manually the VNC password, otherwise it will be randomly generated
+        #- name: VNC_PASSWORD
+        #  value: "7d8b923c0eff11eb985c24418c"
+
+        ## Parameters required for automatically create the connection in Guacamole for this container
+        ## Comment this bloc if you don't want to create the connection
+        # - name: GUACAMOLE_URL
+        #   value: "{{ .Values.guacamoleConnectionCreation.guacamoleUrl }}"
+        # - name: GUACD_HOST
+        #   value: "{{ .Values.guacamoleConnectionCreation.guacdHost }}"
+        # - name: GUACAMOLE_USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "{{ .Values.name }}-secret"
+        #       key: guacamole-user
+        # - name: GUACAMOLE_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "{{ .Values.name }}-secret"
+        #       key: guacamole-password
+        # - name: OIDC_URL
+        #   value: "https://chaimeleon-eu.i3m.upv.es/auth/realms/CHAIMELEON/protocol/openid-connect/token"
+        # - name: OIDC_GUACAMOLE_CLIENT_ID
+        #   value: "guacamole"
+
         - name: SSH_ENABLE_PASSWORD_AUTH
           value: "true"
         - name: GATEWAY_PORTS
           value: "true"
         - name: TCP_FORWARDING
           value: "true"
-        # Parameters required for automatically create the connection in Guacamole for this container
-        # Comment this bloc if you don't want to create the connection
-        # - name: GUACAMOLE_HOST
-        #   value: "{{ .Values.guacamoleConnectionCreation.host }}"
-        # - name: GUACAMOLE_PORT
-        #   value: "{{ .Values.guacamoleConnectionCreation.port }}"
-        # - name: GUACAMOLE_PATH
-        #   value: "{{ .Values.guacamoleConnectionCreation.path }}"
-        # - name: GUACD_HOST
-        #   value: "{{ .Values.guacamoleConnectionCreation.guacdHost }}"
-        # - name: GUACAMOLE_USER
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: {{ include "desktop-tensorflow.fullname" . }}
-        #       key: guacamole-user
-        # - name: GUACAMOLE_PASSWORD
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: {{ include "desktop-tensorflow.fullname" . }}
-        #       key: guacamole-password
+
   volumes:
     - name: rootfs
       cephfs:

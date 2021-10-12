@@ -73,19 +73,19 @@
       "form": false,
       "title": "guacamoleConnectionCreation",
       "properties": {
-        "host": {
+        "guacamoleUser": {
           "type": "string",
           "form": false,
-          "title": "Hostname",
+          "title": "User",
           "hidden": {
             "value": false,
             "path": "guacamoleConnectionCreation/enabled"
           }
         },
-        "port": {
-          "type": "integer",
+        "guacamolePassword": {
+          "type": "string",
           "form": false,
-          "title": "Port",
+          "title": "Password",
           "hidden": {
             "value": false,
             "path": "guacamoleConnectionCreation/enabled"

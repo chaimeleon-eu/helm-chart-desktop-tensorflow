@@ -35,13 +35,10 @@ podSecurityContext:
 
 
 guacamoleConnectionCreation:
-  host: "chaimeleon-eu.i3m.upv.es"
-  port: 32443
-  path: "guacamole"
+  guacamoleUrl: "https://chaimeleon-eu.i3m.upv.es/guacamole/"
   guacdHost: "10.111.51.93"
   guacamoleUser: "pepe"
   guacamolePassword: "pepa"
-  guacamole_url: "https://chaimeleon-eu.i3m.upv.es/guacamole/#/"
 
 
 
