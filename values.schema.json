@@ -68,6 +68,11 @@
         }
       }
     },
+    "persistentUserDataVolume": {
+      "type": "string",
+      "title": "Persistent user data volume:",
+      "form": true
+    },
     "guacamoleConnectionCreation": {
       "type": "object",
       "form": false,

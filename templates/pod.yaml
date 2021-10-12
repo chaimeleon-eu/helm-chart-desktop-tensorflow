@@ -12,10 +12,12 @@ spec:
     {{- toYaml . | nindent 8 }}
   {{- end }}
   securityContext:
+{{- if ne .Values.ceph.user "XXXXXXXXXX" }}
     runAsUser: {{ .Values.user.uid }}
     runAsGroup: {{ .Values.user.gid }}
     supplementalGroups:
     {{- toYaml .Values.dataset.gid_list  | nindent 6 }}
+{{- end }}
   containers:
     - name: {{ .Chart.Name }}
       securityContext:
@@ -24,10 +26,16 @@ spec:
       image: "chaimeleon-eu.i3m.upv.es:10443/chaimeleon-library/ubuntu_python_tensorflow_gpu_desktop_vnc_sshd:{{ .Chart.AppVersion }}"
       imagePullPolicy: IfNotPresent
       volumeMounts:
+{{- if .Values.persistentUserDataVolume }}
+      - mountPath: "/mnt/persistentHome"
+        name: persistent-user-data-volume
+{{- end }}
+{{- if ne .Values.ceph.user "XXXXXXXXXX" }}
       - mountPath: "{{ .Values.datasets.rootfs_mount_dir}}"
         name: rootfs
       - mountPath: "{{ .Values.dataset.mount_point}}"
         name: dataset
+{{- end }}
       ports:
       - containerPort: 22
         name: sshd
@@ -39,6 +47,9 @@ spec:
           value: "{{ .Values.user.username }}"
         - name: PASSWORD
           value: "{{ .Values.user.password }}"
+          
+        - name: PERSISTENT_HOME_MOUNT_POINT
+          value: /mnt/persistentHome
 
         ## Uncomment if you want to set manually the VNC password, otherwise it will be randomly generated
         #- name: VNC_PASSWORD
@@ -73,6 +84,12 @@ spec:
           value: "true"
 
   volumes:
+{{- if .Values.persistentUserDataVolume }}
+    - name: persistent-user-data-volume
+      persistentVolumeClaim:
+        claimName: "{{ .Values.persistentUserDataVolume }}"
+{{- end }}
+{{- if ne .Values.ceph.user "XXXXXXXXXX" }}
     - name: rootfs
       cephfs:
         path: "{{ .Values.datasets.rootfs_dir }}"
@@ -91,4 +108,4 @@ spec:
         secretRef:
           name: "{{ .Values.name }}-secret"
         readOnly: true  
-    
+{{- end }}

@@ -19,6 +19,7 @@ user:
   username: "chaimeleon"
   group: "chaimeleon"
  
+persistentUserDataVolume: ""
 
 dataset:
   id: "XXXXXXXXXXXXX"
@@ -39,8 +40,6 @@ guacamoleConnectionCreation:
   guacdHost: "10.111.51.93"
   guacamoleUser: "pepe"
   guacamolePassword: "pepa"
-
-
 
 
 datasets:
