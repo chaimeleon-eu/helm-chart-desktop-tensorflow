@@ -2,22 +2,6 @@
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {   
-    "ceph": {
-      "type": "object",
-      "form": true,
-      "properties": {
-        "key": {
-          "type": "string",
-          "title": "key",
-          "form": true
-        },
-        "user": {
-          "type": "string",
-          "title": "user",
-          "form": true
-        }
-      }
-    }, 
     "dataset": {
       "type": "object",
       "form": true,
