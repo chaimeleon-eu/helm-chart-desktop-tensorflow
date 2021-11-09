@@ -2,53 +2,21 @@
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {   
-    "dataset": {
-      "type": "object",
+    "datasets_list": {
+      "type": "array",
       "form": true,
-      "properties": {
-        "id": {
-          "type": "string",
-          "title": "id",
-          "form": true
-        },
-        "gid_list": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          },
-          "title": "gid_list",
-          "form": true
-        },
-        "mount_point": {
-          "type": "string",
-          "title": "mount_point",
-          "form": false
-        }
+      "items": {
+        "type": "string"
       }
     },
     "user": {
       "type": "object",
       "form": true,
       "properties": {
-        "username": {
-          "type": "string",
-          "title": "username",
-          "form": true
-        },
         "password": {
           "type": "string",
           "title": "password",
           "form": true
-        },
-        "uid": {
-          "type": "integer",
-          "title": "uid",
-          "form": false
-        },
-        "gid": {
-          "type": "integer",
-          "title": "gid",
-          "form": false
         }
       }
     },

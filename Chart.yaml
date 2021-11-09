@@ -15,7 +15,7 @@ sources:
 - https://chaimeleon.eu/
 type: application
 
-version: 0.1.3-dev
+version: 0.1.5-dev
 
 maintainers:  
   - name: Sergio Lopez Huguet

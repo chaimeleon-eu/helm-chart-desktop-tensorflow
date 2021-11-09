@@ -8,24 +8,19 @@ fullnameOverride: ""
 
 name: "my-workstation-1"
 
+datasets_list:
+    - "dataset1"
+    - "dataset2"
+    - "dataset3"  
+  
 docker_image: chaimeleon-eu.i3m.upv.es:10443/chaimeleon-library/tensorflow-interactive:dev
 
-ceph:
-  user: serlophug
+configmaps:
+  ceph: "ceph-info"
+  chaimeleon: "chaimeleon"
 
 user:
-  uid: 1000
-  gid: 1000 
-  password: "XXXXXX"
-  username: "chaimeleon"
-  group: "chaimeleon"
- 
-
-dataset:
-  id: "XXXXXXXXXXXXX"
-  gid_list: []
-  mount_point: "/mnt/dataset"
-
+  password: XXXXXXXXXXXXX
 
 guacamoleConnectionCreation:
   host: "chaimeleon-eu.i3m.upv.es"
@@ -34,13 +29,4 @@ guacamoleConnectionCreation:
   guacdHost: "10.111.51.93"
   guacamoleUser: "pepe"
   guacamolePassword: "pepa"
-  guacamole_url: "https://chaimeleon-eu.i3m.upv.es/guacamole/#/"
 
-datasets:
-  rootfs_dir: "/data"
-  rootfs_mount_dir: "/mnt/rootfs"
-  datasets_dir: "/datasets"
-  monitor_list:
-    - "192.168.3.8:6789"
- 
-securityContext: {}
