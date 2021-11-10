@@ -57,8 +57,7 @@ spec:
                     securityContext:
                         #runAsUser: {{- include "chaimeleon.user.uid" . }}
                         #runAsGroup: {{- include "chaimeleon.group.gid" . }}
-                        supplementalGroups:
-                            -  {{- include "chaimeleon.ceph.gid" . }}
+                        supplementalGroups: [ {{- include "chaimeleon.ceph.gid" . }} ] 
                     containers:
                         - name: {{ .Chart.Name }}
                           image: "{{ .Values.docker_image }}"
