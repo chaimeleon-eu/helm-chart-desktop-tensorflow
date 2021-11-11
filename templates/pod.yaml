@@ -25,6 +25,11 @@ spec:
       #image: "primage/interactive:ub1804_one2002_tf2.3.1_gpu_desktop_vnc_sshd"
       image: "chaimeleon-eu.i3m.upv.es:10443/chaimeleon-library/ubuntu_python_tensorflow_gpu_desktop_vnc_sshd:{{ .Chart.AppVersion }}"
       imagePullPolicy: IfNotPresent
+{{- if .Values.requestGPU }}
+      resources:
+        limits:
+          nvidia.com/gpu: 1 # requesting 1 GPU
+{{- end }}
       volumeMounts:
 {{- if .Values.persistentUserDataVolume }}
         - mountPath: "/mnt/persistentHome"

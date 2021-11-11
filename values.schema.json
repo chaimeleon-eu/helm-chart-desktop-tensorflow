@@ -1,7 +1,12 @@
 {
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
-  "properties": {   
+  "properties": {
+    "requestGPU": {
+      "type": "boolean",
+      "title": "Request GPU",
+      "form": true
+    },
     "ceph": {
       "type": "object",
       "form": true,
@@ -76,12 +81,12 @@
     "guacamoleConnectionCreation": {
       "type": "object",
       "form": false,
-      "title": "guacamoleConnectionCreation",
+      "title": "Guacamole connection creation",
       "properties": {
         "guacamoleUserSecretName": {
           "type": "string",
           "form": false,
-          "title": "Secret name",
+          "title": "Secret name:",
           "hidden": {
             "value": false,
             "path": "guacamoleConnectionCreation/enabled"
