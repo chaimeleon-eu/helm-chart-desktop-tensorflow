@@ -3,10 +3,6 @@
 # Declare variables to be passed into your templates.
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
-name: "my-workstation-1"
 
 ceph:
   key: "XXXXXXXXXX"
@@ -19,7 +15,7 @@ user:
   username: "chaimeleon"
   group: "chaimeleon"
  
-persistentUserDataVolume: ""
+persistentUserDataVolume: "persistent-home-claim"
 
 dataset:
   id: "XXXXXXXXXXXXX"

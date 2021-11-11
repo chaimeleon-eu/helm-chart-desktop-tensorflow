@@ -3,8 +3,8 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "desktop-tensorflow.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- define "desktop-tensorflow.chartName" -}}
+{{- .Chart.Name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -13,15 +13,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "desktop-tensorflow.fullname" -}}
-{{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- $name := default .Chart.Name .Values.nameOverride }}
-{{- if contains $name .Release.Name }}
+{{- if contains .Chart.Name .Release.Name }}
 {{- .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{- printf "%s-%s" .Chart.Name .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 {{- end }}
 
@@ -48,7 +43,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "desktop-tensorflow.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "desktop-tensorflow.name" . }}
+app.kubernetes.io/name: {{ include "desktop-tensorflow.chartName" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
@@ -67,6 +62,6 @@ Create the name of the service account to use
 Print the name for the Guacamole connection.
 */}}
 {{- define "desktop-tensorflow.connectionName" }}
-{{ now | date "2006-01-02-15-04-05" }}--{{ .Values.name }}
+{{ now | date "2006-01-02-15-04-05" }}--{{ include "desktop-tensorflow.fullname" . }}
 {{- end }}
 

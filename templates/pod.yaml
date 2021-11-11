@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Pod
 metadata:
-# name: {{ include "desktop-tensorflow.fullname" . }}
-  name: "{{ .Values.name }}"
+  name: {{ include "desktop-tensorflow.fullname" . }}
+# name: "{{ .Values.name }}"
   
   labels:
     {{- include "desktop-tensorflow.labels" . | nindent 4 }}
@@ -27,20 +27,20 @@ spec:
       imagePullPolicy: IfNotPresent
       volumeMounts:
 {{- if .Values.persistentUserDataVolume }}
-      - mountPath: "/mnt/persistentHome"
-        name: persistent-user-data-volume
+        - mountPath: "/mnt/persistentHome"
+          name: persistent-user-data-volume
 {{- end }}
 {{- if ne .Values.ceph.user "XXXXXXXXXX" }}
-      - mountPath: "{{ .Values.datasets.rootfs_mount_dir}}"
-        name: rootfs
-      - mountPath: "{{ .Values.dataset.mount_point}}"
-        name: dataset
+        - mountPath: "{{ .Values.datasets.rootfs_mount_dir}}"
+          name: rootfs
+        - mountPath: "{{ .Values.dataset.mount_point}}"
+          name: dataset
 {{- end }}
       ports:
-      - containerPort: 22
-        name: sshd
-      - containerPort: 5900
-        name: vnc
+        - containerPort: 22
+          name: sshd
+        - containerPort: 5900
+          name: vnc
       env:
          # Ubuntu user
         - name: USER
@@ -96,7 +96,7 @@ spec:
         {{- toYaml .Values.datasets.monitor_list | nindent 8 }}
         user: "{{ .Values.ceph.user }}"
         secretRef:
-          name: "{{ .Values.name }}-secret"
+          name: "{{ include "desktop-tensorflow.fullname" . }}"
         readOnly: true
     - name: dataset
       cephfs:
@@ -105,6 +105,6 @@ spec:
         {{- toYaml .Values.datasets.monitor_list | nindent 8 }}
         user: "{{ .Values.ceph.user }}"
         secretRef:
-          name: "{{ .Values.name }}-secret"
+          name: "{{ include "desktop-tensorflow.fullname" . }}"
         readOnly: true  
 {{- end }}
