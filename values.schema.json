@@ -78,19 +78,10 @@
       "form": false,
       "title": "guacamoleConnectionCreation",
       "properties": {
-        "guacamoleUser": {
+        "guacamoleUserSecretName": {
           "type": "string",
           "form": false,
-          "title": "User",
-          "hidden": {
-            "value": false,
-            "path": "guacamoleConnectionCreation/enabled"
-          }
-        },
-        "guacamolePassword": {
-          "type": "string",
-          "form": false,
-          "title": "Password",
+          "title": "Secret name",
           "hidden": {
             "value": false,
             "path": "guacamoleConnectionCreation/enabled"

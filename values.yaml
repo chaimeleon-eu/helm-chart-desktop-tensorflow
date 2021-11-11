@@ -37,9 +37,10 @@ podSecurityContext:
 
 guacamoleConnectionCreation:
   guacamoleUrl: "https://chaimeleon-eu.i3m.upv.es/guacamole/"
-  guacdHost: "10.111.51.93"
-  guacamoleUser: "pepe"
-  guacamolePassword: "pepa"
+  guacdHost: "10.101.99.93"
+  guacamoleUserSecretName: "guacamole-api-auth"
+#  guacamoleUser: "guacUser"
+#  guacamolePassword: "guacPassword"
 
 
 datasets:

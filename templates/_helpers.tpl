@@ -1,4 +1,5 @@
 {{/* vim: set filetype=mustache: */}}
+
 {{/*
 Expand the name of the chart.
 */}}
@@ -60,5 +61,12 @@ Create the name of the service account to use
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
+{{- end }}
+
+{{/*
+Print the name for the Guacamole connection.
+*/}}
+{{- define "desktop-tensorflow.connectionName" }}
+{{ now | date "2006-01-02-15-04-05" }}--{{ .Values.name }}
 {{- end }}
 
