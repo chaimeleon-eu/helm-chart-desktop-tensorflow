@@ -60,7 +60,7 @@ spec:
         #- name: VNC_PASSWORD
         #  value: "7d8b923c0eff11eb985c24418c"
 
-{{- if .Values.guacamoleUserSecretName }}
+{{- if .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}
         # Parameters required for automatically create the connection in Guacamole for this container
         - name: GUACAMOLE_URL
           value: "{{ .Values.guacamoleConnectionCreation.guacamoleUrl }}"
@@ -69,12 +69,12 @@ spec:
         - name: GUACAMOLE_USER
           valueFrom:
             secretKeyRef:
-              name: "{{ .Values.guacamoleUserSecretName }}"
+              name: "{{ .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}"
               key: user
         - name: GUACAMOLE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: "{{ .Values.guacamoleUserSecretName }}"
+              name: "{{ .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}"
               key: password
         - name: GUACAMOLE_CONNECTION_NAME
           value: "{{- include "desktop-tensorflow.connectionName" . }}"
