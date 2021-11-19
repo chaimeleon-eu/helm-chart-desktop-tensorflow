@@ -32,7 +32,7 @@ spec:
 {{- end }}
       volumeMounts:
 {{- if .Values.persistentUserDataVolume }}
-        - mountPath: "/mnt/persistentHome"
+        - mountPath: "/home/chaimeleon/persistent-home"
           name: persistent-user-data-volume
 {{- end }}
 {{- if ne .Values.ceph.user "XXXXXXXXXX" }}
@@ -42,19 +42,19 @@ spec:
           name: dataset
 {{- end }}
       ports:
-        - containerPort: 22
+        - containerPort: 2222
           name: sshd
         - containerPort: 5900
           name: vnc
       env:
          # Ubuntu user
-        - name: USER
-          value: "{{ .Values.user.username }}"
+        #- name: USER
+        #  value: "{{ .Values.user.username }}"
         - name: PASSWORD
           value: "{{ .Values.user.password }}"
           
-        - name: PERSISTENT_HOME_MOUNT_POINT
-          value: /mnt/persistentHome
+        #- name: PERSISTENT_HOME_MOUNT_POINT
+        #  value: /mnt/persistentHome
 
         ## Uncomment if you want to set manually the VNC password, otherwise it will be randomly generated
         #- name: VNC_PASSWORD
