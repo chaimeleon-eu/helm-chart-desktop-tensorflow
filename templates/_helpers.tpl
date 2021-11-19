@@ -65,3 +65,9 @@ Print the name for the Guacamole connection.
 {{ now | date "2006-01-02-15-04-05" }}--{{ include "desktop-tensorflow.fullname" . }}
 {{- end }}
 
+{{/*
+Print a random string (useful for generate passwords).
+*/}}
+{{- define "desktop-tensorflow.randomString" }}
+{{- randAlphaNum 20 -}}
+{{- end }}

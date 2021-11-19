@@ -13,8 +13,7 @@ ceph:
 user:
   uid: 1000
   gid: 1000 
-  password: "XXXXXX"
-  username: "chaimeleon"
+  password: "password4chaimeleon"
   group: "chaimeleon"
  
 persistentUserDataVolume: "persistent-home-claim"

@@ -47,18 +47,16 @@ spec:
         - containerPort: 5900
           name: vnc
       env:
-         # Ubuntu user
-        #- name: USER
-        #  value: "{{ .Values.user.username }}"
+        # password for "chaimeleon" (OS and SSH) user
         - name: PASSWORD
           value: "{{ .Values.user.password }}"
-          
-        #- name: PERSISTENT_HOME_MOUNT_POINT
-        #  value: /mnt/persistentHome
 
-        ## Uncomment if you want to set manually the VNC password, otherwise it will be randomly generated
-        #- name: VNC_PASSWORD
-        #  value: "7d8b923c0eff11eb985c24418c"
+        # password for VNC access (empty username)
+        - name: VNC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: "{{ include "desktop-tensorflow.fullname" . }}"
+              key: vnc_password
 
 {{- if .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}
         # Parameters required for automatically create the connection in Guacamole for this container

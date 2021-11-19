@@ -5,7 +5,7 @@ The application will be accesible via Guacamole in the following URL:
 There should be a connection created for that desktop with the following name: 
   {{- include "desktop-tensorflow.connectionName" . }}
 
-Once in the desktop, there will be two directory links in /home/{{ .Values.user.username }}/
-  - dataset
+Once in the desktop, there will be two directory links in /home/chaimeleon/
+  - datasets
   - persistent-home
 

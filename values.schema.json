@@ -7,22 +7,6 @@
       "title": "Request GPU",
       "form": true
     },
-    "ceph": {
-      "type": "object",
-      "form": true,
-      "properties": {
-        "key": {
-          "type": "string",
-          "title": "key",
-          "form": true
-        },
-        "user": {
-          "type": "string",
-          "title": "user",
-          "form": true
-        }
-      }
-    }, 
     "dataset": {
       "type": "object",
       "form": true,
@@ -51,11 +35,6 @@
       "type": "object",
       "form": true,
       "properties": {
-        "username": {
-          "type": "string",
-          "title": "username",
-          "form": true
-        },
         "password": {
           "type": "string",
           "title": "password",
