@@ -22,4 +22,5 @@
 *.tmproj
 .vscode/
 
+#templates/secret.yaml
 templates/deployment.yaml

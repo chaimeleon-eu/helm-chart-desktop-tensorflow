@@ -8,10 +8,7 @@ fullnameOverride: ""
 
 name: "my-workstation-1"
 
-datasets_list:
-    - "dataset1"
-    - "dataset2"
-    - "dataset3"  
+datasets_list: []  
   
 docker_image: chaimeleon-eu.i3m.upv.es:10443/chaimeleon-library/tensorflow-interactive:dev
 
