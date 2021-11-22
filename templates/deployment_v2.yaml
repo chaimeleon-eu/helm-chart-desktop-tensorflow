@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Chart.Name }}-{{ .Values.name }}"
+  name: "{{ include "desktop-tensorflow.fullname" . }}"
   annotations: 
     "chaimeleon.eu/datasetsIDs": "{{ join ", " .Values.datasets_list }}"
     "chaimeleon.eu/toolName": "{{ .Chart.Name }}"
@@ -12,11 +12,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "{{ .Chart.Name }}-{{ .Values.name }}"
+      app: "{{ include "desktop-tensorflow.fullname" . }}"
   template:
     metadata:
       labels:
-        app: "{{ .Chart.Name }}-{{ .Values.name }}"
+        app: "{{ include "desktop-tensorflow.fullname" . }}"
     spec:
       volumes:
         - name: datalake
@@ -56,8 +56,13 @@ spec:
 
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.docker_image }}"
-        imagePullPolicy: Always
+        image: "chaimeleon-eu.i3m.upv.es:10443/chaimeleon-library/ubuntu_python_tensorflow_gpu_desktop_vnc_sshd:{{ .Chart.AppVersion }}"
+        imagePullPolicy: IfNotPresent
+{{- if .Values.requestGPU }}
+        resources:
+          limits:
+            nvidia.com/gpu: 1 # requesting 1 GPU
+{{- end }}
         volumeMounts:
           - mountPath: "{{- include "chaimeleon.datalake.mount_point" . -}}"
             name: datalake
@@ -68,15 +73,42 @@ spec:
             name: "{{ $datasetID -}}"
             {{- end }}
         ports:
-          - containerPort: 22
+          - containerPort: 2222
             name: sshd
           - containerPort: 5900
-            name: vnc-gui        
+            name: vnc-gui
         env:
-          - name: USER
-            value: "{{- include "chaimeleon.user.name" . }}"
+          # password for "chaimeleon" (OS and SSH) user
           - name: PASSWORD
             value: "{{ .Values.user.password }}"
+
+          # password for VNC access (empty username)
+          - name: VNC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "{{ include "desktop-tensorflow.fullname" . }}"
+                key: vnc_password
+
+{{- if .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}
+          # Parameters required for automatically create the connection in Guacamole for this container
+          - name: GUACAMOLE_URL
+            value: "{{ .Values.guacamoleConnectionCreation.guacamoleUrl }}"
+          - name: GUACD_HOST
+            value: "{{ .Values.guacamoleConnectionCreation.guacdHost }}"
+          - name: GUACAMOLE_USER
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}"
+                key: user
+          - name: GUACAMOLE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}"
+                key: password
+          - name: GUACAMOLE_CONNECTION_NAME
+            value: "{{- include "desktop-tensorflow.connectionName" . }}"
+{{- end }}
+
           - name: SSH_ENABLE_PASSWORD_AUTH
             value: "true"
           - name: GATEWAY_PORTS
