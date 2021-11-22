@@ -1,8 +1,11 @@
 
 The application will be accesible via Guacamole in the following URL:
-  {{ .Values.guacamoleConnectionCreation.guacamole_url }}
+  {{ .Values.guacamoleConnectionCreation.guacamoleUrl }}
  
-There should be a connection created for that desktop, you can find it with the following name: 
-  {{ .Values.name }}
+There should be a connection created for that desktop with the following name: 
+  {{- include "desktop-tensorflow.connectionName" . }}
 
-Once in the desktop, you can access the selected dataset in the directory /mnt/dataset.
+Once in the desktop, there will be two directory links in /home/chaimeleon/
+  - datasets
+  - persistent-home
+

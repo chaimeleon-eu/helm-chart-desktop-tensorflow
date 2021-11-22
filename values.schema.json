@@ -1,13 +1,18 @@
 {
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
-  "properties": {   
+  "properties": {
     "datasets_list": {
       "type": "array",
       "form": true,
       "items": {
         "type": "string"
       }
+    },
+    "requestGPU": {
+      "type": "boolean",
+      "title": "Request GPU",
+      "form": true
     },
     "user": {
       "type": "object",
@@ -17,31 +22,6 @@
           "type": "string",
           "title": "password",
           "form": true
-        }
-      }
-    },
-    "guacamoleConnectionCreation": {
-      "type": "object",
-      "form": false,
-      "title": "guacamoleConnectionCreation",
-      "properties": {
-        "host": {
-          "type": "string",
-          "form": false,
-          "title": "Hostname",
-          "hidden": {
-            "value": false,
-            "path": "guacamoleConnectionCreation/enabled"
-          }
-        },
-        "port": {
-          "type": "integer",
-          "form": false,
-          "title": "Port",
-          "hidden": {
-            "value": false,
-            "path": "guacamoleConnectionCreation/enabled"
-          }
         }
       }
     }

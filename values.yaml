@@ -3,27 +3,21 @@
 # Declare variables to be passed into your templates.
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 
-name: "my-workstation-1"
+requestGPU: true
 
 datasets_list: []  
-  
-docker_image: chaimeleon-eu.i3m.upv.es:10443/chaimeleon-library/tensorflow-interactive:dev
 
 configmaps:
   ceph: "ceph-info"
   chaimeleon: "chaimeleon"
 
 user:
-  password: XXXXXXXXXXXXX
+  password: "password4chaimeleon"
 
 guacamoleConnectionCreation:
-  host: "chaimeleon-eu.i3m.upv.es"
-  port: 32443
-  path: "guacamole"
-  guacdHost: "10.111.51.93"
-  guacamoleUser: "pepe"
-  guacamolePassword: "pepa"
+  guacamoleUrl: "https://chaimeleon-eu.i3m.upv.es/guacamole/"
+  guacdHost: "10.101.99.93"
+  guacamoleUserSecretName: "guacamole-api-auth"
+
 
