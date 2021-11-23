@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Chart.Name }}-{{ .Values.name }}"
+  labels:
+    {{- include "desktop-tensorflow.labels" . | nindent 4 }}    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ .Chart.Name }}-{{ .Values.name }}"
+  template:
+    metadata:
+      labels:
+        app: "{{ .Chart.Name }}-{{ .Values.name }}"
+    spec:
+      volumes:
+        - name: rootfs
+          cephfs:
+            path: "{{ .Values.datasets.rootfs_dir }}"
+            monitors:
+            {{- toYaml .Values.datasets.monitor_list | nindent 12 }}
+            user: "{{ .Values.ceph.user }}"
+            secretRef:
+              name: "ceph-user-secret"
+            readOnly: true
+        - name: dataset
+          cephfs:
+            path: "{{ .Values.datasets.datasets_dir }}/{{ .Values.dataset.id }}"
+            monitors:
+            {{- toYaml .Values.datasets.monitor_list | nindent 12 }}
+            user: "{{ .Values.ceph.user }}"
+            secretRef:
+              name: "ceph-user-secret"
+            readOnly: true 
+
+      securityContext:
+          #runAsUser: {{ .Values.user.uid }}
+          #runAsGroup: {{ .Values.user.gid }}
+          supplementalGroups:
+          {{- toYaml .Values.dataset.gid_list  | nindent 12 }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.docker_image }}"
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: "{{ .Values.datasets.rootfs_mount_dir}}"
+            name: rootfs
+          - mountPath: "{{ .Values.dataset.mount_point}}"
+            name: dataset
+        ports:
+          - containerPort: 22
+            name: sshd
+          - containerPort: 5900
+            name: vnc-gui        
+        env:
+          - name: USER
+            value: "{{ .Values.user.username }}"
+          - name: PASSWORD
+            value: "{{ .Values.user.password }}"
+          - name: SSH_ENABLE_PASSWORD_AUTH
+            value: "true"
+          - name: GATEWAY_PORTS
+            value: "true"
+          - name: TCP_FORWARDING
+            value: "true"
+          # Parameters required for automatically create the connection in Guacamole for this container
+          # Comment this bloc if you don't want to create the connection
+          # - name: GUACAMOLE_HOST
+          #   value: "{{ .Values.guacamoleConnectionCreation.host }}"
+          # - name: GUACAMOLE_PORT
+          #   value: "{{ .Values.guacamoleConnectionCreation.port }}"
+          # - name: GUACAMOLE_PATH
+          #   value: "{{ .Values.guacamoleConnectionCreation.path }}"
+          # - name: GUACD_HOST
+          #   value: "{{ .Values.guacamoleConnectionCreation.guacdHost }}"
+          # - name: GUACAMOLE_USER
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: {{ .Chart.Name }}-{{ .Values.name }}
+          #       key: guacamole-user
+          # - name: GUACAMOLE_PASSWORD
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: {{ .Chart.Name }}-{{ .Values.name }}
+          #       key: guacamole-password
+        

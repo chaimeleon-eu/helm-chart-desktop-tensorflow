@@ -2,34 +2,17 @@
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {
+    "datasets_list": {
+      "type": "array",
+      "form": true,
+      "items": {
+        "type": "string"
+      }
+    },
     "requestGPU": {
       "type": "boolean",
       "title": "Request GPU",
       "form": true
-    },
-    "dataset": {
-      "type": "object",
-      "form": true,
-      "properties": {
-        "id": {
-          "type": "string",
-          "title": "id",
-          "form": true
-        },
-        "gid_list": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          },
-          "title": "gid_list",
-          "form": true
-        },
-        "mount_point": {
-          "type": "string",
-          "title": "mount_point",
-          "form": false
-        }
-      }
     },
     "user": {
       "type": "object",
@@ -39,40 +22,8 @@
           "type": "string",
           "title": "password",
           "form": true
-        },
-        "uid": {
-          "type": "integer",
-          "title": "uid",
-          "form": false
-        },
-        "gid": {
-          "type": "integer",
-          "title": "gid",
-          "form": false
-        }
-      }
-    },
-    "persistentUserDataVolume": {
-      "type": "string",
-      "title": "Persistent user data volume:",
-      "form": true
-    },
-    "guacamoleConnectionCreation": {
-      "type": "object",
-      "form": false,
-      "title": "Guacamole connection creation",
-      "properties": {
-        "guacamoleUserSecretName": {
-          "type": "string",
-          "form": false,
-          "title": "Secret name:",
-          "hidden": {
-            "value": false,
-            "path": "guacamoleConnectionCreation/enabled"
-          }
         }
       }
     }
-  },
-  "required": ["persistentUserDataVolume"]
+  }
 }

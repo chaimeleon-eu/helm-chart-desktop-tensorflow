@@ -23,3 +23,7 @@
 .vscode/
 
 *.tgz
+
+#templates/secret.yaml
+templates/deployment.yaml
+templates/pod.yaml

@@ -6,57 +6,18 @@ imagePullSecrets: []
 
 requestGPU: true
 
-ceph:
-  key: "XXXXXXXXXX"
-  user: "XXXXXXXXXX"
+datasets_list: []  
+
+configmaps:
+  ceph: "ceph-info"
+  chaimeleon: "chaimeleon"
 
 user:
-  uid: 1000
-  gid: 1000 
   password: "password4chaimeleon"
-  group: "chaimeleon"
- 
-persistentUserDataVolume: "persistent-home-claim"
-
-dataset:
-  id: "XXXXXXXXXXXXX"
-  gid_list: 
-    - 1500
-  mount_point: "/mnt/dataset"
-
-podSecurityContext: 
-  runAsUser: 1000
-  runAsGroup: 1000
-  supplementalGroups:
-    - 1500 
-  # fsGroup: 2000
-
 
 guacamoleConnectionCreation:
   guacamoleUrl: "https://chaimeleon-eu.i3m.upv.es/guacamole/"
   guacdHost: "10.101.99.93"
   guacamoleUserSecretName: "guacamole-api-auth"
-#  guacamoleUser: "guacUser"
-#  guacamolePassword: "guacPassword"
 
 
-datasets:
-  rootfs_dir: "/data"
-  rootfs_mount_dir: "/mnt/rootfs"
-  datasets_dir: "/datasets"
-  monitor_list:
-    - "192.168.3.8:6789"
- 
-securityContext: {}
-
-  # runAsUser: 1000 #{{ .Values.user.uid }}
-  # runAsGroup: 1000 #{{ .Values.user.gid }}
-  # #supplementalGroups:
-  # #  - 1500 
-  #   #{{- toYaml .Values.dataset.gid_list  | nindent 4}}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
