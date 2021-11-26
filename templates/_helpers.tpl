@@ -61,14 +61,18 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{/*
 {{- define "desktop-tensorflow.container-password" -}}
+
 {{- if .Release.IsInstall }}
 {{- randAlphaNum 20 -}}
 {{ else }}
 {{- index (lookup "v1" "Secret" .Release.Namespace "{{ include "desktop-tensorflow.fullname" . }}").data "container-password" -}}
 {{- end }}
-{{- end }}
 
+{{- end }}
+*/}}
+{{/*
 {{- define "desktop-tensorflow.id" -}}
 {{- if .Release.IsInstall }}
 {{- randAlphaNum 20 | b64enc -}}
@@ -76,7 +80,7 @@ Create the name of the service account to use
 {{- index (lookup "v1" "Secret" .Release.Namespace "{{ include "desktop-tensorflow.fullname" . }}").data "container-password" -}}
 {{- end }}
 {{- end }}
-
+*/}}
 
 
 {{/*
