@@ -2,25 +2,26 @@
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {
-    "datasets_list": {
-      "type": "array",
-      "form": true,
-      "items": {
-        "type": "string"
-      }
-    },
     "requestGPU": {
       "type": "boolean",
       "title": "Request GPU",
+      "description": "Mark to ensure the workstation has GPU assigned",
+      "form": true
+    },
+    "datasets_list": {
+      "type": "string",
+      "title": "Dataset list",
+      "description": "A comma separated list of the dataset that will be available at the container",
       "form": true
     },
     "user": {
       "type": "object",
-      "form": true,
+      "form": false,
       "properties": {
         "password": {
           "type": "string",
-          "title": "password",
+          "description": "The password to access to the container",
+          "title": "Container password",
           "form": true
         }
       }

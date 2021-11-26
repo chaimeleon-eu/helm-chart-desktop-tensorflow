@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: "{{ include "desktop-tensorflow.fullname" . }}"
   annotations: 
-    "chaimeleon.eu/datasetsIDs": "{{ join ", " .Values.datasets_list }}"
+    "chaimeleon.eu/datasetsIDs": "{{ .Values.datasets_list }}"
     "chaimeleon.eu/toolName": "{{ .Chart.Name }}"
     "chaimeleon.eu/toolVersion": "{{ .Chart.Version | quote }}"
   labels:
@@ -50,8 +50,8 @@ spec:
         {{- end }}
 
       securityContext:
-          #runAsUser: {{ .Values.user.uid }}
-          #runAsGroup: {{ .Values.user.gid }}
+          runAsUser: {{- include "chaimeleon.user.uid" . }}
+          runAsGroup: {{- include "chaimeleon.group.gid" . }}
           supplementalGroups: [ {{- include "chaimeleon.ceph.gid" . }} ] 
 
       containers:
