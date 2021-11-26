@@ -8,5 +8,3 @@ There should be a connection created for that desktop with the following name:
 Once in the desktop, there will be two directory links in /home/chaimeleon/
   - datasets
   - persistent-home
-
-CONTAINER PASSWORD: "{{ .Values.user.password }}"
