@@ -7,7 +7,9 @@ spec:
         app: "{{ include "desktop-tensorflow.fullname" . }}"
     type: ClusterIP
     ports:
-      - port: 2222
-        targetPort: sshd
-      - port: 5900
-        targetPort: vnc-gui
+    - port: 2222
+      targetPort: 2222
+      name: sshd
+    - port: 5900
+      targetPort: 5900
+      name: vnc-gui

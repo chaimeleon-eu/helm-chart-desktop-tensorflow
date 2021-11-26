@@ -27,6 +27,7 @@ Create chart name and version as used by the chart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
+
 {{/*
 Common labels
 */}}
@@ -63,7 +64,6 @@ Create the name of the service account to use
 
 {{/*
 {{- define "desktop-tensorflow.container-password" -}}
-
 {{- if .Release.IsInstall }}
 {{- randAlphaNum 20 -}}
 {{ else }}
@@ -82,6 +82,14 @@ Create the name of the service account to use
 {{- end }}
 */}}
 
+{{/*
+Chaimeleon annotations
+*/}}
+{{- define "desktop-tensorflow.annotations" -}}
+chaimeleon.eu/datasetsIDs: "{{ .Values.datasets_list }}"
+chaimeleon.eu/toolName: "{{ .Chart.Name }}"
+chaimeleon.eu/toolVersion: "{{ .Chart.Version }}"
+{{- end }}
 
 {{/*
 Obtain chaimeleon common variables
@@ -156,8 +164,8 @@ Obtain chaimeleon common variables
 {{/*
 Print the name for the Guacamole connection.
 */}}
-{{- define "desktop-tensorflow.connectionName" }}
-{{ now | date "2006-01-02-15-04-05" }}--{{ include "desktop-tensorflow.fullname" . }}
+{{- define "desktop-tensorflow.connectionName" -}}
+{{- now | date "2006-01-02-15-04-05" }}--{{ include "desktop-tensorflow.fullname" . -}}
 {{- end }}
 
 {{/*
@@ -166,3 +174,12 @@ Print a random string (useful for generate passwords).
 {{- define "desktop-tensorflow.randomString" }}
 {{- randAlphaNum 20 -}}
 {{- end }}
+
+
+{{/*
+Return a list of the datasets from the string of datasets
+
+{{- define "desktop-tensorflow.getDatasetList" }}
+{{- splitList "," "{{ .Values.datasets_list }}" -}}
+{{- end }}
+*/}}

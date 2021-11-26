@@ -3,9 +3,7 @@ kind: Deployment
 metadata:
   name: "{{ include "desktop-tensorflow.fullname" . }}"
   annotations: 
-    "chaimeleon.eu/datasetsIDs": "{{ .Values.datasets_list }}"
-    "chaimeleon.eu/toolName": "{{ .Chart.Name }}"
-    "chaimeleon.eu/toolVersion": "{{ .Chart.Version | quote }}"
+    {{- include "desktop-tensorflow.annotations" . | nindent 4 }}  
   labels:
     {{- include "desktop-tensorflow.labels" . | nindent 4 }}    
 spec:
@@ -37,7 +35,8 @@ spec:
             secretRef:
                 name: "ceph-auth"
             readOnly: true
-        {{- range $datasetID := .Values.datasets_list }}
+        
+        {{- range $datasetID := splitList "," .Values.datasets_list }}
         - name: "{{ $datasetID -}}"
           cephfs:
             path: "{{- include "chaimeleon.datasets.path" $ -}}/{{- $datasetID -}}"
@@ -50,9 +49,9 @@ spec:
         {{- end }}
 
       securityContext:
-          runAsUser: {{- include "chaimeleon.user.uid" . }}
-          runAsGroup: {{- include "chaimeleon.group.gid" . }}
-          supplementalGroups: [ {{- include "chaimeleon.ceph.gid" . }} ] 
+        runAsUser: {{ include "chaimeleon.user.uid" . }}
+        runAsGroup: {{ include "chaimeleon.group.gid" . }}
+        supplementalGroups: [ {{ include "chaimeleon.ceph.gid" . }} ] 
 
       containers:
       - name: {{ .Chart.Name }}
@@ -68,10 +67,12 @@ spec:
             name: datalake
           - mountPath: "{{- include "chaimeleon.persistent_home.mount_point" . -}}"
             name: home
-          {{- range $datasetID := .Values.datasets_list }}
+            
+          {{- range $datasetID := splitList "," .Values.datasets_list }}
           - mountPath: "{{- include "chaimeleon.datasets.mount_point" $ -}}/{{- $datasetID -}}"
             name: "{{ $datasetID -}}"
             {{- end }}
+
         ports:
           - containerPort: 2222
             name: sshd
@@ -106,9 +107,8 @@ spec:
                 name: "{{ .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}"
                 key: password
           - name: GUACAMOLE_CONNECTION_NAME
-            value: "{{- include "desktop-tensorflow.connectionName" . }}"
+            value: "{{- include "desktop-tensorflow.connectionName" . -}}"
 {{- end }}
-
           - name: SSH_ENABLE_PASSWORD_AUTH
             value: "true"
           - name: GATEWAY_PORTS

@@ -6,7 +6,7 @@ imagePullSecrets: []
 
 requestGPU: true
 
-datasets_list: "" 
+datasets_list: ""
 
 configmaps:
   ceph: "ceph-info"

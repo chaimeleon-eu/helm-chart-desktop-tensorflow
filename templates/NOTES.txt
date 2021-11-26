@@ -9,5 +9,4 @@ Once in the desktop, there will be two directory links in /home/chaimeleon/
   - datasets
   - persistent-home
 
-VNC PASSWORD: "{{ .Values.user.password }}"
 CONTAINER PASSWORD: "{{ .Values.user.password }}"
