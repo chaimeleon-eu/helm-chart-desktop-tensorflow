@@ -51,6 +51,7 @@ spec:
       securityContext:
         runAsUser: {{ include "chaimeleon.user.uid" . }}
         runAsGroup: {{ include "chaimeleon.group.gid" . }}
+        fsGroup: {{ include "chaimeleon.user.uid" . }}
         supplementalGroups: [ {{ include "chaimeleon.ceph.gid" . }} ] 
 
       containers:

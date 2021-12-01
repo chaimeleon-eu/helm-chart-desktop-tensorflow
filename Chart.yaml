@@ -1,5 +1,5 @@
-#apiVersion: v2
-apiVersion: v3
+apiVersion: v2
+
 
 name: desktop-tensorflow
 description: Deploy just a pod with TensorFlow oficial image with GPU enabled plus VNC and SSH services.
@@ -12,7 +12,7 @@ version: 0.3.1
 
 # This is the version number of the application being deployed.
 # It is used for indicate the tag of the image to pull.
-appVersion: 2.2
+appVersion: "2.2"
 
 
 home: https://chaimeleon.eu/
