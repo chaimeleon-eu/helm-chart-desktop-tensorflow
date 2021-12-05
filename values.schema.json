@@ -11,20 +11,8 @@
     "datasets_list": {
       "type": "string",
       "title": "Dataset list",
-      "description": "A comma separated list of the dataset that will be available at the container",
+      "description": "A comma separated list of the datasets that will be available at the container",
       "form": true
-    },
-    "user": {
-      "type": "object",
-      "form": false,
-      "properties": {
-        "password": {
-          "type": "string",
-          "description": "The password to access to the container",
-          "title": "Container password",
-          "form": true
-        }
-      }
     }
   }
 }

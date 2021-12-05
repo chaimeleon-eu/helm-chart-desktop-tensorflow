@@ -82,16 +82,18 @@ spec:
         env:
           # password for "chaimeleon" (OS and SSH) user
           - name: PASSWORD
-            value: "{{ .Values.user.password }}"
+            valueFrom:
+              secretKeyRef:
+                name: "{{ include "desktop-tensorflow.fullname" . }}"
+                key: container-password
 
           # password for VNC access (empty username)
           - name: VNC_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: "{{ include "desktop-tensorflow.fullname" . }}"
-                key: vnc_password
+                key: container-password
 
-{{- if .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}
           # Parameters required for automatically create the connection in Guacamole for this container
           - name: GUACAMOLE_URL
             value: "{{ .Values.guacamoleConnectionCreation.guacamoleUrl }}"
@@ -100,16 +102,16 @@ spec:
           - name: GUACAMOLE_USER
             valueFrom:
               secretKeyRef:
-                name: "{{ .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}"
+                name: "guacamole-api-auth"
                 key: user
           - name: GUACAMOLE_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: "{{ .Values.guacamoleConnectionCreation.guacamoleUserSecretName }}"
+                name: "guacamole-api-auth"
                 key: password
           - name: GUACAMOLE_CONNECTION_NAME
             value: "{{- include "desktop-tensorflow.connectionName" . -}}"
-{{- end }}
+
           - name: SSH_ENABLE_PASSWORD_AUTH
             value: "true"
           - name: GATEWAY_PORTS

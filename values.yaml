@@ -2,8 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-imagePullSecrets: []
-
 requestGPU: true
 
 datasets_list: ""
@@ -12,12 +10,8 @@ configmaps:
   ceph: "ceph-info"
   chaimeleon: "chaimeleon"
 
-user:
-  password: "password4chaimeleon"
-
 guacamoleConnectionCreation:
   guacamoleUrl: "https://chaimeleon-eu.i3m.upv.es/guacamole/"
   guacdHost: "10.101.99.93"
-  guacamoleUserSecretName: "guacamole-api-auth"
 
 
