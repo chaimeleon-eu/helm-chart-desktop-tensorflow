@@ -125,8 +125,7 @@ Obtain chaimeleon common variables
 {{- end }}
 
 {{- define "chaimeleon.datalake.mount_point" -}}
-{{- $configmap := (lookup "v1" "ConfigMap" .Release.Namespace .Values.configmaps.chaimeleon) }}
-{{- index $configmap "data" "datalake.mount_point" -}}
+/home/chaimeleon/datasets
 {{- end }}
 
 {{- define "chaimeleon.persistent_home.path" -}}
@@ -135,8 +134,16 @@ Obtain chaimeleon common variables
 {{- end }}
 
 {{- define "chaimeleon.persistent_home.mount_point" -}}
+/home/chaimeleon/persistent-home
+{{- end }}
+
+{{- define "chaimeleon.persistent_shared_folder.path" -}}
 {{- $configmap := (lookup "v1" "ConfigMap" .Release.Namespace .Values.configmaps.chaimeleon) }}
-{{- index $configmap "data" "persistent_home.mount_point" -}}
+{{- index $configmap "data" "persistent_shared_folder.path" -}}
+{{- end }}
+
+{{- define "chaimeleon.persistent_shared_folder.mount_point" -}}
+/home/chaimeleon/persistent-shared-folder
 {{- end }}
 
 
