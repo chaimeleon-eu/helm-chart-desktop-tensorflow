@@ -34,7 +34,6 @@ spec:
                 - "{{- include "chaimeleon.ceph.monitor" . -}}"  
             secretRef:
                 name: "ceph-auth"
-            readOnly: false
         - name: shared-folder
           cephfs:
             path: "{{- include "chaimeleon.persistent_shared_folder.path" . -}}" 
@@ -43,7 +42,6 @@ spec:
                 - "{{- include "chaimeleon.ceph.monitor" . -}}"  
             secretRef:
                 name: "ceph-auth"
-            readOnly: false
         
         {{- range $datasetID := splitList "," .Values.datasets_list }}
         - name: "{{ $datasetID -}}"

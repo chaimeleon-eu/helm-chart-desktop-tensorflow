@@ -1,18 +1,16 @@
 
-The application will be accesible via Guacamole in the following URL:
+The application will be accesible via Guacamole in the following URL: 
   {{ .Values.guacamoleConnectionCreation.guacamoleUrl }}
  
 There should be a connection created for that desktop with the following name: 
-  {{- include "desktop-tensorflow.connectionName" . }}
-
+  {{ include "desktop-tensorflow.connectionName" . }}
 
 Once in the desktop, there will be three important directories:
-
-  - {{- include "chaimeleon.datalake.mount_point" . -}}  
+  - {{ include "chaimeleon.datalake.mount_point" . }}
     [All the datasets you selected to work with]
     
-  - {{- include "chaimeleon.persistent_home.mount_point" . -}}  
+  - {{ include "chaimeleon.persistent_home.mount_point" . }}
     [Private persistent storage: for your algoritms, results and whatever you need for the work]
     
-  - {{- include "chaimeleon.persistent_shared_folder.mount_point" . -}}  
+  - {{ include "chaimeleon.persistent_shared_folder.mount_point" . }}
     [Public storage where you can share files with the other CHAIMELEON users]

@@ -115,8 +115,7 @@ Obtain chaimeleon common variables
 {{- end }}
 
 {{- define "chaimeleon.datasets.mount_point" -}}
-{{- $configmap := (lookup "v1" "ConfigMap" .Release.Namespace .Values.configmaps.chaimeleon) }}
-{{- index $configmap "data" "datasets.mount_point" -}}
+/home/chaimeleon/datasets
 {{- end }}
 
 {{- define "chaimeleon.datalake.path" -}}
@@ -125,7 +124,7 @@ Obtain chaimeleon common variables
 {{- end }}
 
 {{- define "chaimeleon.datalake.mount_point" -}}
-/home/chaimeleon/datasets
+/mnt/datalake
 {{- end }}
 
 {{- define "chaimeleon.persistent_home.path" -}}
