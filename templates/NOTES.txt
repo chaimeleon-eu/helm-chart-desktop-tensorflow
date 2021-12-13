@@ -6,7 +6,7 @@ There should be a connection created for that desktop with the following name:
   {{ include "desktop-tensorflow.connectionName" . }}
 
 Once in the desktop, there will be three important directories:
-  - {{ include "chaimeleon.datalake.mount_point" . }}
+  - {{ include "chaimeleon.datasets.mount_point" . }}
     [All the datasets you selected to work with]
     
   - {{ include "chaimeleon.persistent_home.mount_point" . }}

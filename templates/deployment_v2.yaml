@@ -64,14 +64,14 @@ spec:
       containers:
       - name: {{ .Chart.Name }}
         imagePullPolicy: IfNotPresent
-{{- if .Values.requestGPU }}
+        {{- if .Values.requestGPU }}
         image: "chaimeleon-eu.i3m.upv.es:10443/chaimeleon-library/ubuntu_python_tensorflow_desktop_vnc_sshd:{{ .Chart.AppVersion }}cuda10"
         resources:
           limits:
             nvidia.com/gpu: 1 # requesting 1 GPU
-{{- else }}
+        {{- else }}
         image: "chaimeleon-eu.i3m.upv.es:10443/chaimeleon-library/ubuntu_python_tensorflow_desktop_vnc_sshd:{{ .Chart.AppVersion }}"
-{{- end }}
+        {{- end }}
         volumeMounts:
           - mountPath: "{{- include "chaimeleon.datalake.mount_point" . -}}"
             name: datalake
@@ -80,9 +80,11 @@ spec:
           - mountPath: "{{- include "chaimeleon.persistent_shared_folder.mount_point" . -}}"
             name: shared-folder
             
+          {{- if .Values.datasets_list }}
           {{- range $datasetID := splitList "," .Values.datasets_list }}
           - mountPath: "{{- include "chaimeleon.datasets.mount_point" $ -}}/{{- $datasetID -}}"
             name: "{{ $datasetID -}}"
+          {{- end }}
           {{- end }}
 
         ports:
