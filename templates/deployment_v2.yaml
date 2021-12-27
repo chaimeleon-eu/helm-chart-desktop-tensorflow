@@ -43,6 +43,7 @@ spec:
             secretRef:
                 name: "ceph-auth"
         
+        {{- if .Values.datasets_list }}
         {{- range $datasetID := splitList "," .Values.datasets_list }}
         - name: "{{ $datasetID -}}"
           cephfs:
@@ -53,6 +54,7 @@ spec:
             secretRef:
                 name: "ceph-auth"
             readOnly: true 
+        {{- end }}
         {{- end }}
 
       securityContext:
