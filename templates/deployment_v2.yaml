@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: "{{ include "desktop-tensorflow.fullname" . }}"
   annotations: 
-    {{- include "desktop-tensorflow.annotations" . | nindent 4 }}  
+    {{- include "chaimeleon.annotations" . | nindent 4 }}  
   labels:
     {{- include "desktop-tensorflow.labels" . | nindent 4 }}    
 spec:
