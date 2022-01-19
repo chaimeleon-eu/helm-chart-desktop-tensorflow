@@ -12,6 +12,6 @@ configmaps:
 
 guacamoleConnectionCreation:
   guacamoleUrl: "https://chaimeleon-eu.i3m.upv.es/guacamole/"
-  guacdHost: "10.101.99.93"
+  guacdHost: "oidc-guacamole-guacd.oidc-guacamole.svc.cluster.local"
 
 

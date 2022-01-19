@@ -62,7 +62,7 @@ spec:
         runAsGroup: {{ include "chaimeleon.group.gid" . }}
         fsGroup: {{ include "chaimeleon.user.uid" . }}
         supplementalGroups: [ {{ include "chaimeleon.ceph.gid" . }} ] 
-
+      
       containers:
       - name: {{ .Chart.Name }}
         imagePullPolicy: IfNotPresent
@@ -108,6 +108,10 @@ spec:
               secretKeyRef:
                 name: "{{ include "desktop-tensorflow.fullname" . }}"
                 key: container-password
+                
+          - name: VNC_HOST
+            # this is the DNS name of the service
+            value: "{{ include "desktop-tensorflow.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local"
 
           # Parameters required for automatically create the connection in Guacamole for this container
           - name: GUACAMOLE_URL
