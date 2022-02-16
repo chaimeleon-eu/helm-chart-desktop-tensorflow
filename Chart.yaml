@@ -8,7 +8,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.3.4
+version: 0.3.3
 
 # This is the version number of the application being deployed.
 # It is used for indicate the tag of the image to pull.
@@ -17,7 +17,8 @@ appVersion: "2.3"
 
 home: https://github.com/chaimeleon-eu/helm-chart-desktop-tensorflow
 # icon: https://chaimeleon.eu/wp-content/uploads/2020/10/logo-chaimeleon.svg
-icon: https://pbs.twimg.com/profile_images/1329395797121769472/AXv64BOJ_400x400.jpg
+# icon: https://pbs.twimg.com/profile_images/1329395797121769472/AXv64BOJ_400x400.jpg
+icon: https://raw.githubusercontent.com/chaimeleon-eu/helm-chart-desktop-tensorflow/master/resources/logo.png
 
 
 
