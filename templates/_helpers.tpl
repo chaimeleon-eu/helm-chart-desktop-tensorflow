@@ -94,15 +94,7 @@ Print the name for the Guacamole connection.
 {{/*
 Print a random string (useful for generate passwords).
 */}}
-{{- define "desktop-tensorflow.randomString" }}
+{{- define "utils.randomString" }}
 {{- randAlphaNum 20 -}}
 {{- end }}
 
-
-{{/*
-Return a list of the datasets from the string of datasets
-
-{{- define "desktop-tensorflow.getDatasetList" }}
-{{- splitList "," "{{ .Values.datasets_list }}" -}}
-{{- end }}
-*/}}

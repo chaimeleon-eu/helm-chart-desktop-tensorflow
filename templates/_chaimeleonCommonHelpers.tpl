@@ -29,15 +29,6 @@ Obtain chaimeleon common variables
 {{- index $configmap "data" "ceph.monitor" -}}
 {{- end }}
 
-{{- define "chaimeleon.datasets.path" -}}
-{{- $configmap := (lookup "v1" "ConfigMap" .Release.Namespace .Values.configmaps.chaimeleon) }}
-{{- index $configmap "data" "datasets.path" -}}
-{{- end }}
-
-{{- define "chaimeleon.datasets.mount_point" -}}
-/home/chaimeleon/datasets
-{{- end }}
-
 {{- define "chaimeleon.datalake.path" -}}
 {{- $configmap := (lookup "v1" "ConfigMap" .Release.Namespace .Values.configmaps.chaimeleon) }}
 {{- index $configmap "data" "datalake.path" -}}
@@ -45,6 +36,18 @@ Obtain chaimeleon common variables
 
 {{- define "chaimeleon.datalake.mount_point" -}}
 /mnt/datalake
+{{- end }}
+
+{{/* Generate the contents of a volume object wich provide access to the datalake folder. */}}
+{{- define "chaimeleon.datalake.volume" -}}
+cephfs:
+  path: "{{ include "chaimeleon.datalake.path" . }}" 
+  user: "{{ include "chaimeleon.ceph.user" . }}" 
+  monitors:
+      - "{{ include "chaimeleon.ceph.monitor" . }}"  
+  secretRef:
+      name: "ceph-auth"
+  readOnly: true
 {{- end }}
 
 {{- define "chaimeleon.persistent_home.path" -}}
@@ -56,6 +59,17 @@ Obtain chaimeleon common variables
 /home/chaimeleon/persistent-home
 {{- end }}
 
+{{/* Generate the contents of a volume object wich provide access to the persistent home folder. */}}
+{{- define "chaimeleon.persistent_home.volume" -}}
+cephfs:
+  path: "{{ include "chaimeleon.persistent_home.path" . }}" 
+  user: "{{ include "chaimeleon.ceph.user" . }}" 
+  monitors:
+      - "{{ include "chaimeleon.ceph.monitor" . }}"  
+  secretRef:
+      name: "ceph-auth"
+{{- end }}
+
 {{- define "chaimeleon.persistent_shared_folder.path" -}}
 {{- $configmap := (lookup "v1" "ConfigMap" .Release.Namespace .Values.configmaps.chaimeleon) }}
 {{- index $configmap "data" "persistent_shared_folder.path" -}}
@@ -65,6 +79,40 @@ Obtain chaimeleon common variables
 /home/chaimeleon/persistent-shared-folder
 {{- end }}
 
+{{/* Generate the contents of a volume object wich provide access to the persistent shared folder. */}}
+{{- define "chaimeleon.persistent_shared_folder.volume" -}}
+cephfs:
+  path: "{{ include "chaimeleon.persistent_shared_folder.path" . }}" 
+  user: "{{ include "chaimeleon.ceph.user" . }}" 
+  monitors:
+      - "{{ include "chaimeleon.ceph.monitor" . }}"  
+  secretRef:
+      name: "ceph-auth"
+{{- end }}
+
+{{- define "chaimeleon.datasets.path" -}}
+{{- $configmap := (lookup "v1" "ConfigMap" .Release.Namespace .Values.configmaps.chaimeleon) }}
+{{- index $configmap "data" "datasets.path" -}}
+{{- end }}
+
+{{- define "chaimeleon.datasets.mount_point" -}}
+/home/chaimeleon/datasets
+{{- end }}
+
+{{/* Generate the contents of a volume object wich provide access to a dataset files.
+     Input required: a list with 2 params ( top-level scope, dataset Id ) */}}
+{{- define "chaimeleon.dataset.volume" -}}
+{{- $top := index . 0 -}}
+{{- $datasetID := index . 1 -}}
+cephfs:
+  path: "{{ include "chaimeleon.datasets.path" $top }}/{{ $datasetID }}" 
+  user: "{{ include "chaimeleon.ceph.user" $top }}" 
+  monitors:
+      - "{{ include "chaimeleon.ceph.monitor" $top }}"  
+  secretRef:
+      name: "ceph-auth"
+  readOnly: true
+{{- end }}
 
 
 {{- define "chaimeleon.user.name" -}}
