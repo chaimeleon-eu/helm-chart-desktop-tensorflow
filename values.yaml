@@ -13,8 +13,3 @@ configmaps:
   ceph: "ceph-info"
   chaimeleon: "chaimeleon"
 
-guacamoleConnectionCreation:
-  guacamoleUrl: "https://chaimeleon-eu.i3m.upv.es/guacamole/"
-  guacdHost: "oidc-guacamole-guacd.oidc-guacamole.svc.cluster.local"
-
-

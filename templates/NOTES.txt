@@ -1,6 +1,6 @@
 
 The application will be accesible via Guacamole in the following URL: 
-  {{ .Values.guacamoleConnectionCreation.guacamoleUrl }}
+  {{ include "chaimeleon.guacamole-url" . }}
  
 There should be a connection created for that desktop with the following name: 
   {{ include "desktop-tensorflow.connectionName" . }}
