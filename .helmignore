@@ -7,7 +7,7 @@
 # Common VCS dirs
 .git/
 .gitignore
-.helmignore
+.gitmodules
 .bzr/
 .bzrignore
 .hg/
