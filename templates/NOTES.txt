@@ -4,10 +4,11 @@ When the application is ready it will be accesible via Guacamole in the followin
  
 There should be a connection created for that desktop with the following name: 
   {{ include "desktop-tensorflow.connectionName" . }}
+It can take few seconds to appear (refresh the page if you do not see it).
 
-Once in the desktop, remember...
+Once in the remote desktop, remember...
 
-    To show/hide Guacamole menu: CTRL+SHIFT+ALT
+    To show/hide the Guacamole menu: CTRL+SHIFT+ALT
 
     There will be three important directories:
       - {{ include "chaimeleon.datasets.mount_point" . }}

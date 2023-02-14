@@ -43,9 +43,9 @@ spec:
       - name: {{ .Chart.Name }}
         imagePullPolicy: IfNotPresent
         {{- if .Values.requests.gpu }}
-        image: "{{ include "chaimeleon.library-url" . }}/ubuntu_python_tensorflow_desktop_vnc_sshd:{{ .Chart.AppVersion }}cuda10"
+        image: "{{ include "chaimeleon.library-url" . }}/ubuntu_python_tensorflow_desktop:{{ .Chart.AppVersion }}cuda11"
         {{- else }}
-        image: "{{ include "chaimeleon.library-url" . }}/ubuntu_python_tensorflow_desktop_vnc_sshd:{{ .Chart.AppVersion }}"
+        image: "{{ include "chaimeleon.library-url" . }}/ubuntu_python_tensorflow_desktop:{{ .Chart.AppVersion }}"
         {{- end }}
         resources:
           requests:
@@ -102,15 +102,9 @@ spec:
           - name: GUACD_HOST
             value: "{{ include "chaimeleon.guacd-host" . }}"
           - name: GUACAMOLE_USER
-            valueFrom:
-              secretKeyRef:
-                name: "guacamole-api-auth"
-                key: user
+            {{- include "chaimeleon.guacamole-user-value" . | nindent 12 }}
           - name: GUACAMOLE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: "guacamole-api-auth"
-                key: password
+            {{- include "chaimeleon.guacamole-password-value" . | nindent 12 }}
           - name: GUACAMOLE_CONNECTION_NAME
             value: "{{- include "desktop-tensorflow.connectionName" . -}}"
 
