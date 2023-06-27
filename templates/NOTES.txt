@@ -1,10 +1,13 @@
 
-When the application is ready it will be accesible via Guacamole in the following URL: 
+When the application is ready it will be accessible via Guacamole in the following URL: 
   {{ include "chaimeleon.guacamole-url" . }}
  
-There should be a connection created for that desktop with the following name: 
-  {{ include "desktop-tensorflow.connectionName" . }}
+There should be a connection created for this desktop with the following name: 
+ + {{ include "desktop-tensorflow.connectionName" . }}
 It can take few seconds to appear (refresh the page if you do not see it).
+
+**IMPORTANT:** This desktop may be removed automatically if you don't connect to it for more than 7 days.
+               You should write all you want to save (algorithms, results of your jobs) in persistent-home (see below).
 
 Once in the remote desktop, remember...
 
@@ -15,7 +18,7 @@ Once in the remote desktop, remember...
         [All the datasets you selected to work with]
         
       - {{ include "chaimeleon.persistent_home.mount_point" . }}
-        [Private persistent storage: for your algoritms, results and whatever you need for the work]
+        [Private persistent storage: for your algorithms, results and whatever you need for the work]
         
       - {{ include "chaimeleon.persistent_shared_folder.mount_point" . }}
         [Public storage where you can share files with the other CHAIMELEON users]
