@@ -88,7 +88,7 @@ Create the name of the service account to use
 Print the name for the Guacamole connection.
 */}}
 {{- define "desktop-tensorflow.connectionName" -}}
-{{- now | date "2006-01-02-15-04-05" }}--{{ include "desktop-tensorflow.fullname" . -}}
+{{- DATE-TIME---{{ include "desktop-tensorflow.fullname" . -}}
 {{- end }}
 
 {{/*
