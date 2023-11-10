@@ -88,13 +88,13 @@ Create the name of the service account to use
 Print the name for the Guacamole connection.
 */}}
 {{- define "desktop-tensorflow.connectionName" -}}
-{{- DATE-TIME---{{ include "desktop-tensorflow.fullname" . -}}
+DATE-TIME---{{ include "desktop-tensorflow.fullname" . -}}
 {{- end }}
 
 {{/*
 Print a random string (useful for generate passwords).
 */}}
-{{- define "utils.randomString" }}
+{{- define "utils.randomString" -}}
 {{- randAlphaNum 20 -}}
 {{- end }}
 
